@@ -3,7 +3,10 @@ from requestdata import sendRequest
 
 #### Main
 
-status, result = sendRequest("https://obriand.fr/api/v1/create.php")
+type = "note"
+value = "test"
+
+status, result = sendRequest("https://obriand.fr/api/v1/create.php?type="+type+"&value="+value)
 
 if(status) :
 	print("\n==> create data result = " + str(result))

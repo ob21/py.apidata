@@ -3,7 +3,7 @@ import json
 from datetime import datetime
 
 #### Send request fonction
-def sendRequest(url):
+def sendRequest(url, parameters=""):
 	status = False
 	result = json.dumps({})
 	# Set proxies
@@ -13,18 +13,22 @@ def sendRequest(url):
 	}
 	# Create a session
 	session = requests.Session()
-	# Get the current hour to build the url with the token
+	# Get the current hour to build the token
 	hour = datetime.now().strftime("%H")
-	url_request = url+"?token=go"+hour
+	token = "go"+hour
+	# Get params
+	payload = {"token": "go"+hour}
 	# Print the request url
-	#print(url_request)
+	print(url)
+	# Print the request parameters
+	print(parameters)
 	# Try to perform the request
 	try:
 	    print("On essaie sans proxy")
-	    res = session.get(url_request)
+	    res = session.get(url, params=payload)
 	except requests.exceptions.ConnectionError as e:
 	    print("Ca ne passe pas donc on utilise un proxy")
-	    res = session.get(url_request, proxies=proxies)
+	    res = session.get(url, proxies=proxies)
 	except requests.exceptions.RequestException as e:
 	    print("Ca ne marche pas même avec un proxy, verifier la connexion internet")
 	    raise SystemExit(e)
@@ -33,6 +37,7 @@ def sendRequest(url):
 	# Print the response
 	if res:
 	    print('Response OK')
+	    print("res="+res.text)
 	    status = True
 	    json_result = res.json()
 	    result = json_result

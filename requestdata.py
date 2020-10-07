@@ -50,7 +50,11 @@ def sendRequest(method, url, parameters={}):
 	    print('Response OK')
 	    print("res="+res.text)
 	    status = True
-	    json_result = res.json()
+	    try:
+	      json_result = res.json()
+	    except:
+	      json_result = {}
+	      json_result["error"] = "Response is not a JSON"
 	    result = json_result
 	    print("La reponse en JSON est : \n" + str(json_result))
 	    try:

@@ -53,7 +53,10 @@ def sendRequest(method, url, parameters={}):
 	    json_result = res.json()
 	    result = json_result
 	    print("La reponse en JSON est : \n" + str(json_result))
-	    request_result = json_result["result"]
+	    try:
+	      request_result = json_result["result"]
+	    except KeyError:
+	      request_result = json_result["error"]
 	    #print("Le tableau est : \n" + str(request_result))
 	    #print("Le premier element est : \n" + str(request_result[0]))
 	else:

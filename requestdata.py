@@ -6,8 +6,10 @@ from datetime import datetime
 def sendRequest(method, url, parameters={}):
 	status = False
 	result = json.dumps({})
-	# Set auth object
+	# Init auth object
 	auth={}
+	# Init data object
+	data = parameters
 	# Set proxies
 	proxies = {
 	  "http": "http://p-goodway.rd.francetelecom.fr:3128",
@@ -31,13 +33,13 @@ def sendRequest(method, url, parameters={}):
 	    if(method=="GET"):
 	     res = session.get(url, params=parameters)
 	    else:
-	     res = session.post(url, data=parameters, params=auth)
+	     res = session.post(url, data=data, params=auth)
 	except requests.exceptions.ConnectionError as e:
 	    print("Ca ne passe pas donc on utilise un proxy")
 	    if(method=="GET"):
 	     res = session.get(url, params=parameters, proxies=proxies)
 	    else:
-	     res = session.post(url, data=parameters, params=auth, proxies=proxies)
+	     res = session.post(url, data=data, params=auth, proxies=proxies)
 	except requests.exceptions.RequestException as e:
 	    print("Ca ne marche pas même avec un proxy, verifier la connexion internet")
 	    raise SystemExit(e)

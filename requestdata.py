@@ -9,7 +9,7 @@ def sendRequest(method, url, parameters={}):
 	# Init auth object
 	auth={}
 	# Init data object
-	data = parameters
+	data = dict(parameters)
 	# Set proxies
 	proxies = {
 	  "http": "http://p-goodway.rd.francetelecom.fr:3128",
@@ -26,7 +26,9 @@ def sendRequest(method, url, parameters={}):
 	# Print the request url
 	print(url)
 	# Print the request parameters
-	print(str(parameters))
+	print("parameters=" + str(parameters))
+	# Print the request data
+	print("data=" + str(data))
 	# Try to perform the request
 	try:
 	    print("On essaie sans proxy")

@@ -1,6 +1,8 @@
 import sys
+import json
 from requestdata import log
 from requestdata import sendRequest
+import pprint
 
 #### List data
 
@@ -28,4 +30,9 @@ def list():
     return "has failed"
 
 # Main
-print(str(list()).strip())
+r = str(list())
+#.replace("\'", "\"")
+print(r)
+#json_object = json.loads(r)
+#json_formatted_str = json.dumps(json_object, indent = 2)
+#print(json_formatred_str)

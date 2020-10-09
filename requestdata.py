@@ -2,7 +2,13 @@ import requests
 import json
 from datetime import datetime
 
-#### Send request fonction
+#### Log function
+logs = ""
+def log(msg):
+  #print(msg)
+  return
+
+#### Send request function
 def sendRequest(method, url, parameters={}):
 	status = False
 	result = json.dumps({})
@@ -23,36 +29,36 @@ def sendRequest(method, url, parameters={}):
 	# Get params
 	parameters["token"] = "go"+hour
 	auth["token"] = "go"+hour
-	# Print the request url
-	print(url)
-	# Print the request parameters
-	print("parameters=" + str(parameters))
-	# Print the request data
-	print("data=" + str(data))
+	# Log the request url
+	log(url)
+	# Log the request parameters
+	log("parameters=" + str(parameters))
+	# Log the request data
+	log("data=" + str(data))
 	# Try to perform the request
 	try:
-	    print("On essaie sans proxy")
+	    log("On essaie sans proxy")
 	    if(method=="GET"):
 	     res = session.get(url, params=parameters)
 	    else:
 	     res = session.post(url, data=data, params=auth)
 	except requests.exceptions.ConnectionError as e:
-	    print("Ca ne passe pas donc on utilise un proxy")
+	    log("La requête ne passe pas donc on utilise un proxy")
 	    if(method=="GET"):
 	     res = session.get(url, params=parameters, proxies=proxies)
 	    else:
 	     res = session.post(url, data=data, params=auth, proxies=proxies)
 	except requests.exceptions.RequestException as e:
-	    print("Ca ne marche pas même avec un proxy, verifier la connexion internet")
+	    log("Ca ne marche pas même avec un proxy, verifier la connexion internet")
 	    raise SystemExit(e)
-	# Print the url
-	print(res.url)
-	# Print the status code response
-	print(res.status_code)
-	# Print the response
+	# Log the url
+	log(res.url)
+	# Log the status code response
+	log(res.status_code)
+	# Log the response
 	if res:
-	    print('Response OK')
-	    print("res="+res.text)
+	    log('Response OK')
+	    log("res="+res.text)
 	    status = True
 	    try:
 	      json_result = res.json()
@@ -60,7 +66,7 @@ def sendRequest(method, url, parameters={}):
 	      json_result = {}
 	      json_result["error"] = "Response is not a JSON"
 	    result = json_result
-	    print("La reponse en JSON est : \n" + str(json_result))
+	    log("La reponse en JSON est : \n" + str(json_result))
 	    try:
 	      request_result = json_result["result"]
 	    except KeyError:
@@ -68,6 +74,7 @@ def sendRequest(method, url, parameters={}):
 	    #print("Le tableau est : \n" + str(request_result))
 	    #print("Le premier element est : \n" + str(request_result[0]))
 	else:
-	    print('Response Failed')
+	    log('Response Failed')
+	print(logs)
 	return status, result
 

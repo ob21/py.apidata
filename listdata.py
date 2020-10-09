@@ -1,4 +1,5 @@
 import sys
+from requestdata import log
 from requestdata import sendRequest
 
 #### List data
@@ -12,7 +13,7 @@ def list():
     arg = sys.argv[1]
     #print("type=" + arg)
   except:
-    print("info: no type found in arguments")
+    log("info: no type found in arguments")
 
 # Prepare url
   url = "https://obriand.fr/api/v1/list.php"
@@ -27,4 +28,4 @@ def list():
     return "has failed"
 
 # Main
-print("\n==> list data result = " + str(list()))
+print(str(list()).strip())

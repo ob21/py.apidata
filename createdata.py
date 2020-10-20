@@ -1,4 +1,5 @@
 import sys
+from encodedecode import encode
 from requestdata import sendRequest
 
 #### Main
@@ -20,7 +21,7 @@ except:
 
 p = {}
 p["type"] = arg1
-p["value"] = arg2
+p["value"] = encode(arg2)
 
 status, result = sendRequest("POST", "https://obriand.fr/api/v1/create.php", p)
 
@@ -28,3 +29,4 @@ if(status) :
 	print("\n==> create data result = " + str(result))
 else:
 	print("\n==> create data has failed")
+

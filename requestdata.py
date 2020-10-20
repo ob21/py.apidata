@@ -1,12 +1,19 @@
 import requests
 import json
 from datetime import datetime
+from encodedecode import decode
 
 #### Log function
 logs = ""
 def log(msg):
-  #print(msg)
+  print(msg)
   return
+
+#### Decode json function
+def decodeJson(json):
+  for element in json["result"]:
+    element["value"] = decode(element["value"])
+  return json
 
 #### Send request function
 def sendRequest(method, url, parameters={}):
@@ -65,6 +72,10 @@ def sendRequest(method, url, parameters={}):
 	    except:
 	      json_result = {}
 	      json_result["error"] = "Response is not a JSON"
+	    try:
+	      decodeJson(json_result)
+	    except:
+	      log("Fail to decode value attribute in JSON response")
 	    result = json_result
 	    log("La reponse en JSON est : \n" + str(json_result))
 	    try:

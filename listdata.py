@@ -1,5 +1,6 @@
 import sys
 import json
+from encodedecode import decode
 from requestdata import log
 from requestdata import sendRequest
 import pprint

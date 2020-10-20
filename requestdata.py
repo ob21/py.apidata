@@ -6,7 +6,7 @@ from encodedecode import decode
 #### Log function
 logs = ""
 def log(msg):
-  print(msg)
+  #print(msg)
   return
 
 #### Decode json function

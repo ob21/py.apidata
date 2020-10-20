@@ -3,10 +3,13 @@ import json
 from datetime import datetime
 from encodedecode import decode
 
+LOG = False
+
 #### Log function
 logs = ""
 def log(msg):
-  #print(msg)
+  if LOG :
+    print(msg)
   return
 
 #### Decode json function
